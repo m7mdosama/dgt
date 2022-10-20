@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_persons_model,security.gate.persons,model_security_gate_persons,base.group_user,1,1,1,1
+access_security_gate,security.gate,model_security_gate,base.group_user,1,1,1,1
+
+access_security_gate_line,security.gate.lines,model_security_gate_lines,base.group_user,1,1,1,1
+access_security_gate_persons_line,security.gate.persons.line,model_security_gate_persons_line,base.group_user,1,1,1,1
+
+
+
+
+
