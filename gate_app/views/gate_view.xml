@@ -1,0 +1,140 @@
+<odoo>
+    <data>
+        <!--> Tree View <-->
+        <record model="ir.ui.view" id="gate_app.list">
+            <field name="name">Gate list</field>
+            <field name="model">security.gate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="visit_date"/>
+                    <field name="customer_name"/>
+                    <field name="source_invoices" widget="many2many_tags"/>
+                    <field name="source_delivery" widget="many2many_tags"/>
+                    <field name="empty" invisible="1"/>
+                    <field name="today" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!--> Form View <-->
+        <record model="ir.ui.view" id="gate_app.form">
+            <field name="name">Gate Form</field>
+            <field name="model">security.gate</field>
+            <field name="arch" type="xml">
+                <form string="Gate Information">
+                    <header>
+                <button id="button_confirm" name="action_confirm" attrs="{'invisible':[('state', '!=', 'draft')]}" string="confirm"   class="oe_highlight"
+                type="object"/>
+                <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                    </header>
+                    <sheet>
+                        <group col="2" string="Gate Information"  style="font-size: 15pt;">
+                            <group >
+                                <field name="customer_name" readonly="1"/>
+                                <field name="type"/>
+                                <field name="visit_date"/>
+                                <field name="empty" invisible="1"/>
+                                <field name="source_invoices" widget="many2many_tags"/>
+                                <field name="source_delivery" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="today" invisible="1"/>
+                                <field name="license_image" widget="image" class="oe_avatar"/>
+                            </group>
+                        </group>
+
+                        <group string="Time" style="font-size: 20pt;">
+                             <div>
+                                <label for="in_time" string='IN :' style="font-size:20pt;"/>
+                                 <field name="in_time" style="font-size:15pt;" widget="float_time"/>
+                                <button name="now_in" type="object"  string="NOW" />
+                            </div>
+                            <div>
+                                <label for="out_time" string='OUT :' style="font-size:20pt;"/>
+                                <field name="out_time" style="font-size:15pt;" widget="float_time"/>
+                                <button name="now_out" type="object"  string="NOW" />
+                            </div>
+                        </group>
+                        <group>
+                            <notebook>
+                                <page string="Persons">
+                                    <field name="persons" widget="section_and_note_one2many" mode="tree,kanban">
+                                        <form>
+                                            <field name="driver_id" string="National ID"/>
+                                            <field name="driver_name" string="Name"/>
+                                            <field name="car_number" string="Car Number"/>
+                                            <field name="person_id" string="ID Copy" widget="image" style="width:200px;hieght:100px"/>
+                                            <field name="person_down"  widget="download" />
+                                        </form>
+                                        <tree editable="top">
+                                            <control>
+                                                <create name="add_person_control" string="Add New Person"/>
+                                            </control>
+                                            <field name="driver_id" string="National ID"/>
+                                            <field name="driver_name" string="Name"/>
+                                            <field name="car_number" string="Car Number"/>
+                                            <field name="person_id" string="ID Copy" widget="image" style="width:200px;height:100px"/>
+                                            <field name="person_down" string="Download"  widget="download" />
+                                        </tree>
+
+                                    </field>
+                                </page>
+
+                                <page string="Actions" name="del_line">
+                                    <field name="gate_line" widget="section_and_note_one2many" mode="tree,kanban">
+                                        <form>
+                                            <field String="Name" name="name" force_save="1" readonly="1"/>
+                                            <field name="sec_confirm" force_save="1"/>
+                                            <field name="note" force_save="1"/>
+
+                                        </form>
+                                        <tree string="Calculation Lines" editable="bottom">
+                                            <control>
+                                                <create name="add_product_control"/>
+                                            </control>
+                                            <field name="name" String="Name" force_save="1" readonly="1"/>
+                                            <field name="sec_confirm" force_save="1"/>
+                                            <field name="note" force_save="1"/>
+
+                                        </tree>
+                                    </field>
+
+                                </page>
+                            </notebook>
+                        </group>
+                        <field name="note" placeholder="write your notes here"/>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <!-- Filter By Today -->
+        <record id="gate_search_view" model="ir.ui.view">
+            <field name="name">gate.search</field>
+            <field name="model">security.gate</field> 
+            <field name="arch" type="xml">
+                <search>
+                    <field name="visit_date"/>
+                    <filter string="Today" name="visit_date_filter" domain="[('visit_date', '=', 'today')]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+        <record model="ir.actions.act_window" id="gate_app_action_window">
+            <field name="name">Gate App window</field>
+            <field name="res_model">security.gate</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_visit_date_filter':1}</field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem name="Security Gate" groups="gate_app.security_gate_user_group"
+                  web_icon="gate_app,static/description/icon.png" id="security_gate_menu_root"
+                  action="gate_app_action_window"/>
+    </data>
+</odoo>

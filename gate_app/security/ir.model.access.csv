@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_manager_security_gate,security.gate.manager_access ,model_security_gate,security_gate_manager_group,1,1,1,1
+access_manager_persons_model,security.gate.persons.manager_access ,model_security_gate_persons,security_gate_manager_group,1,1,1,1
+access_manager_security_gate_line,security.gate.lines.manager_access ,model_security_gate_lines,security_gate_manager_group,1,1,1,1
+access_manager_security_gate_persons_line,security.gate.persons.line.manager_access ,model_security_gate_persons_line,security_gate_manager_group,1,1,1,1
+access_user_security_gate,security.gate.user_access ,model_security_gate,security_gate_user_group,1,0,0,0
+access_user_persons_model,security.gate.persons.user_access,model_security_gate_persons,security_gate_user_group,1,0,1,0
+access_user_security_gate_line,security.gate.lines.user_access,model_security_gate_lines,security_gate_user_group,1,0,1,0
+access_user_security_gate_persons_line,security.gate.persons.line.user_access ,model_security_gate_persons_line,security_gate_user_group,1,0,1,0
+

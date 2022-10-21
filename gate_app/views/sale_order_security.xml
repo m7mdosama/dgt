@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <record id="view_sale_order_form" model="ir.ui.view">
+            <field name="name">Sales Order Form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(4,ref('gate_app.group_sale_salesman_viewer'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="attributes">
+                    <attribute name="edit">false</attribute>
+                    <attribute name="create">false</attribute>
+                </xpath>
+            </field>
+        </record>
+        <menuitem id="sale.report_sales_team"
+            name="Sales Teams"
+            parent="sale.sale_menu_root"
+            groups="group_sale_salesman_viewer"
+            action="sales_team.crm_team_action_sales"
+            sequence="3"/>
+
+         <menuitem id="sale.sale_order_menu"
+            name="Orders"
+            groups="group_sale_salesman_viewer"
+            parent="sale.sale_menu_root"
+            sequence="2"/>
+        <menuitem id="sale.menu_sale_order"
+            name="Orders"
+            action="sale.action_orders"
+            parent="sale.sale_order_menu"
+            sequence="2" groups="group_sale_salesman_viewer"/>
+        <!--
+         <menuitem
+            id="sale_crm.sale_order_menu_quotations_crm"
+            name="My Quotations"
+            action="sale.action_quotations"
+            groups="group_sale_salesman_viewer"
+            parent="crm.crm_menu_sales"
+            sequence="2"/>
+         <record id="sale.menu_sale_quotations" model="ir.ui.menu">
+             <field name="active" eval="True"/>
+             <field name="groups_id" eval="[(6,0,[ref('gate_app.group_sale_salesman_viewer')])]"/>
+          </record>
+        <menuitem id="crm.crm_menu_root"
+            name="CRM"
+            web_icon="crm,static/description/icon.png"
+            groups="gate_app.group_sale_salesman_viewer"
+            sequence="25"/>
+        <menuitem
+            id="crm.crm_lead_menu_my_activities"
+            name="My Activities"
+            parent="crm.crm_menu_sales"
+            groups="gate_app.group_sale_salesman_viewer"
+            action="crm.crm_lead_action_my_activities"
+            sequence="2"
+        />
+        -->
+        <!--
+        <record model="ir.ui.menu" id="sale.sale_menu_root">
+             <field name="groups_id" eval="[(6,0,[ref('gate_app.group_sale_salesman_viewer')])]"/>
+        </record>
+        -->
+    </data>
+</odoo>
